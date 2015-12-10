@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:background="@drawable/underbar_layout_background"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_bar_height">
+
+        <TextView
+            android:id="@+id/year_month_text_view"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/title_bar_text_size"
+            android:layout_marginLeft="@dimen/title_bar_text_margin"
+            android:text="2015.10"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
+
+        <Button
+            android:id="@+id/add_new_schedule_button"
+            android:text="@string/add_schedule"
+            android:textSize="@dimen/schedule_add_button_text_size"
+            android:textColor="@color/gray"
+            android:background="@drawable/cyon_simple_button"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/title_bar_text_margin"
+            android:layout_width="@dimen/schedule_add_button_size"
+            android:layout_height="@dimen/schedule_add_button_size" />
+
+    </FrameLayout>
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/calendar_data_layout"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>
