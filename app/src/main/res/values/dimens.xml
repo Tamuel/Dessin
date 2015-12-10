@@ -3,16 +3,19 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="splash_image_size">250dp</dimen>
+
     <dimen name="title_bar_height">40dp</dimen>
-    <dimen name="title_bar_text_margin">10dp</dimen>
-    <dimen name="title_bar_text_size">12dp</dimen>
+    <dimen name="title_bar_text_margin">15dp</dimen>
+    <dimen name="title_bar_year_text_size">12dp</dimen>
+    <dimen name="title_bar_month_text_size">20dp</dimen>
 
     <dimen name="schedule_add_button_size">35dp</dimen>
     <dimen name="schedule_add_button_text_size">25dp</dimen>
 
     <dimen name="day_bar_height">40dp</dimen>
-    <dimen name="day_button_width">60dp</dimen>
+    <dimen name="day_button_size">30dp</dimen>
     <dimen name="day_button_text_size">15dp</dimen>
 
-    <dimen name="schedule_bar_height">40dp</dimen>
+    <dimen name="schedule_bar_height">60dp</dimen>
 </resources>

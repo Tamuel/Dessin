@@ -1,14 +1,11 @@
 package com.softwork.ydk_lsj.dessin;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
+import android.util.TypedValue;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
-
-import java.util.Date;
 
 /**
  * Make Day Linear Layout
@@ -19,15 +16,13 @@ public class DayLinearLayout extends LinearLayout  {
     public DayLinearLayout(Context context) {
         super(context);
 
-        Date date = new Date();
-        date.getTime();
         LayoutParams layoutParams = new LayoutParams(
                 LayoutParams.WRAP_CONTENT,
                 (int) getResources().getDimension(R.dimen.day_bar_height),
                 0);
-        layoutParams.weight = 1;
         this.setLayoutParams(layoutParams);
         this.setOrientation(LinearLayout.HORIZONTAL);
+        this.setBackgroundResource(R.drawable.light_underbar_layout_background);
 
         makeDayButtons();
     }
@@ -36,18 +31,60 @@ public class DayLinearLayout extends LinearLayout  {
      * 날짜 버튼 만들기
      */
     public void makeDayButtons() {
-        Log.i("마지막 날짜", DataProvider.getInstance().getMonth() + " " + DataProvider.getInstance().getDayOfMonth() + "일 ");
+        int day = 0;
+        int today = DataProvider.getInstance().getDay();
+
         for(int i = 0; i < DataProvider.getInstance().getDayOfMonth(); i++) {
+            day = i + 1;
             Button newDayButton = new Button(getContext());
             LayoutParams dayButtonParams = new LayoutParams(
-                    (int) getResources().getDimension(R.dimen.day_button_width),
-                    (int) getResources().getDimension(R.dimen.day_bar_height),
+                    (int) getResources().getDimension(R.dimen.day_button_size),
+                    (int) getResources().getDimension(R.dimen.day_button_size),
                     0);
+            int border = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15f, getResources().getDisplayMetrics());
+            int border2 = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, getResources().getDisplayMetrics());
+            dayButtonParams.setMargins(border, border2, border, border2);
+//            newDayButton.setGravity();
+            newDayButton.setPadding(0, 0, 0, 0);
             newDayButton.setLayoutParams(dayButtonParams);
-            newDayButton.setText((i + 1) + "");
-            newDayButton.setBackgroundColor(Color.WHITE);
-            newDayButton.setTextColor(getResources().getColor(R.color.gray));//
-            newDayButton.setTextSize((int)(getResources().getDimension(R.dimen.day_button_text_size) /  getResources().getDisplayMetrics().density));
+            String dayOfWeek = "";
+            switch (DataProvider.getInstance().getDayOfWeek(day)) {
+                case 1:
+                case 7:
+                    dayOfWeek = "S";
+                    break;
+
+                case 2:
+                    dayOfWeek = "M";
+                    break;
+
+                case 3:
+                    dayOfWeek = "T";
+                    break;
+
+                case 4:
+                    dayOfWeek = "W";
+                    break;
+
+                case 5:
+                    dayOfWeek = "T";
+                    break;
+
+                case 6:
+                    dayOfWeek = "F";
+                    break;
+            }
+            newDayButton.setText(day + "");
+            newDayButton.setBackgroundResource(R.drawable.day_simple_button);
+            if(today == day) {
+                newDayButton.setTextColor(getResources().getColor(R.color.white));
+                newDayButton.setBackgroundResource(R.drawable.today_simple_button);
+                newDayButton.setText(dayOfWeek);
+            } else if(DataProvider.getInstance().getDayOfWeek(day) == 1)
+                newDayButton.setTextColor(getResources().getColor(R.color.hotPink));
+            else
+                newDayButton.setTextColor(getResources().getColor(R.color.gray));
+            newDayButton.setTextSize((int) (getResources().getDimension(R.dimen.day_button_text_size) / getResources().getDisplayMetrics().density));
 
             this.addView(newDayButton);
         }

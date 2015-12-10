@@ -1,37 +1,52 @@
 package com.softwork.ydk_lsj.dessin;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
 
 public class MainActivity extends Activity {
-    private LinearLayout calendarDataLayout;
-    private DayLinearLayout  dayLayout;
-    private LinearLayout scheduleLayout;
+    private LinearLayout dayScheduleLayout;
 
-    private TextView yearMonthTextView;
+    private ScrollView scheduleScrollView;
+
+    private DayLinearLayout  dayLayout;
+    private ScheduleLinearLayout scheduleLayout;
+
+    private TextView yearTextView;
+    private TextView monthTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        calendarDataLayout = (LinearLayout)findViewById(R.id.calendar_data_layout);
-        yearMonthTextView = (TextView)findViewById(R.id.year_month_text_view);
+        yearTextView = (TextView)findViewById(R.id.year_text_view);
+        yearTextView.setText(DataProvider.getInstance().getYear() + "");
 
-        yearMonthTextView.setText(
-            DataProvider.getInstance().getYear() +
-            "." +
-            DataProvider.getInstance().getMonth()
-        );
+        monthTextView = (TextView)findViewById(R.id.month_text_view);
+        monthTextView.setText(DataProvider.getInstance().getMonth() + "");
+
+        dayScheduleLayout = (LinearLayout)findViewById(R.id.day_schedule_linear_layout);
 
         dayLayout = new DayLinearLayout(this);
-        calendarDataLayout.addView(dayLayout);
+        dayScheduleLayout.addView(dayLayout);
+
+        scheduleScrollView = new ScrollView(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                0);
+        scheduleScrollView.setFillViewport(true);
+        scheduleScrollView.setLayoutParams(layoutParams);
+
+        scheduleLayout = new ScheduleLinearLayout(this);
+        scheduleScrollView.addView(scheduleLayout);
+
+        dayScheduleLayout.addView(scheduleScrollView);
     }
 
 }

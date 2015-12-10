@@ -1,5 +1,6 @@
 package com.softwork.ydk_lsj.dessin.DataProvider;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -20,6 +21,14 @@ public class DataProvider {
         }
 
         return instance;
+    }
+
+    public int getDayOfWeek(int day) {
+        Calendar cal= Calendar.getInstance ();
+        cal.set(Calendar.YEAR, getYear());
+        cal.set(Calendar.MONTH, getMonth() - 1);
+        cal.set(Calendar.DATE, day);
+        return cal.get(date.DAY_OF_WEEK);
     }
 
     public GregorianCalendar getDate() {

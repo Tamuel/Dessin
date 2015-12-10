@@ -8,4 +8,6 @@
     <color name="white">#ffffff</color>
     <color name="cyonColor">#46aaaa</color>
     <color name="lowCyonColor">#beeeee</color>
+    
+    <color name="hotPink">#ed4978</color>
 </resources>
