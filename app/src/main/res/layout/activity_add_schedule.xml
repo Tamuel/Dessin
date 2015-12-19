@@ -6,27 +6,68 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.softwork.ydk_lsj.dessin.Activity.AddScheduleActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="스케줄 작성"/>
-
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="스케줄 작성"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="32dp">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="@dimen/spinner_text_width"
+                    android:text="시작일"/>
+                <Spinner
+                    android:id="@+id/start_year_spinner"
+                    android:layout_width="@dimen/year_spinner_width"
+                    android:layout_height="@dimen/spinner_height">
+                </Spinner>
+                <TextView
+                    android:layout_width="@dimen/spinner_text_width"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="년"/>
+                <Spinner
+                    android:id="@+id/start_month_spinner"
+                    android:layout_width="@dimen/spinner_width"
+                    android:layout_height="@dimen/spinner_height">
+                </Spinner>
+                <TextView
+                    android:layout_width="@dimen/spinner_text_width"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="월"/>
+                <Spinner
+                    android:id="@+id/start_day_spinner"
+                    android:layout_width="@dimen/spinner_width"
+                    android:layout_height="@dimen/spinner_height">
+                </Spinner>
+                <TextView
+                    android:layout_width="@dimen/spinner_text_width"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="일"/>
+            </LinearLayout>
+
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="32dp">
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="@dimen/spinner_text_width"
-                android:text="시작일"/>
+                android:text="종료일"/>
             <Spinner
-                android:id="@+id/start_year_spinner"
-                android:layout_width="@dimen/spinner_width"
+                android:id="@+id/end_year_spinner"
+                android:layout_width="@dimen/year_spinner_width"
                 android:layout_height="@dimen/spinner_height">
             </Spinner>
             <TextView
@@ -34,7 +75,7 @@
                 android:layout_height="@dimen/spinner_text_height"
                 android:text="년"/>
             <Spinner
-                android:id="@+id/start_month_spinner"
+                android:id="@+id/end_month_spinner"
                 android:layout_width="@dimen/spinner_width"
                 android:layout_height="@dimen/spinner_height">
             </Spinner>
@@ -43,7 +84,7 @@
                 android:layout_height="@dimen/spinner_text_height"
                 android:text="월"/>
             <Spinner
-                android:id="@+id/start_day_spinner"
+                android:id="@+id/end_day_spinner"
                 android:layout_width="@dimen/spinner_width"
                 android:layout_height="@dimen/spinner_height">
             </Spinner>
@@ -53,64 +94,85 @@
                 android:text="일"/>
         </LinearLayout>
 
-        <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="32dp">
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="@dimen/spinner_text_width"
-            android:text="종료일"/>
-        <Spinner
-            android:id="@+id/end_year_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height">
-        </Spinner>
-        <TextView
-            android:layout_width="@dimen/spinner_text_width"
-            android:layout_height="@dimen/spinner_text_height"
-            android:text="년"/>
-        <Spinner
-            android:id="@+id/end_month_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height">
-        </Spinner>
-        <TextView
-            android:layout_width="@dimen/spinner_text_width"
-            android:layout_height="@dimen/spinner_text_height"
-            android:text="월"/>
-        <Spinner
-            android:id="@+id/end_day_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height">
-        </Spinner>
-        <TextView
-            android:layout_width="@dimen/spinner_text_width"
-            android:layout_height="@dimen/spinner_text_height"
-            android:text="일"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/title_edit"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:hint="제목"/>
 
-        <EditText
-            android:id="@+id/title_edit"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:hint="제목"/>
+            <EditText
+                android:id="@+id/info_edit"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:inputType="textMultiLine"
+                android:ems="3"
+                android:hint="내용"/>
 
-        <EditText
-            android:id="@+id/info_edit"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:inputType="textMultiLine"
-            android:ems="3"
-            android:hint="내용"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="세부 일정" />
+                <Button
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="+"
+                    android:gravity="right"
+                    android:onClick="onClickSubScheduleButton"/>
+            </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="시작일"/>
+                <Spinner
+                    android:id="@+id/sub_start_year_spinner"
+                    android:layout_width="@dimen/year_spinner_width"
+                    android:layout_height="@dimen/spinner_height">
+                </Spinner>
+                <TextView
+                    android:layout_width="@dimen/spinner_text_width"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="년"/>
+                <Spinner
+                    android:id="@+id/sub_start_month_spinner"
+                    android:layout_width="@dimen/spinner_width"
+                    android:layout_height="@dimen/spinner_height">
+                </Spinner>
+                <TextView
+                    android:layout_width="@dimen/spinner_text_width"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="월"/>
+                <Spinner
+                    android:id="@+id/sub_start_day_spinner"
+                    android:layout_width="@dimen/spinner_width"
+                    android:layout_height="@dimen/spinner_height">
+                </Spinner>
+                <TextView
+                    android:layout_width="@dimen/spinner_text_width"
+                    android:layout_height="@dimen/spinner_text_height"
+                    android:text="일"/>
+            </LinearLayout>
+
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="32dp">
+            android:layout_height="35dp">
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="@dimen/spinner_text_height"
+                android:text="시작일"/>
             <Spinner
-                android:id="@+id/add_year_spinner"
-                android:layout_width="@dimen/spinner_width"
+                android:id="@+id/sub_end_year_spinner"
+                android:layout_width="@dimen/year_spinner_width"
                 android:layout_height="@dimen/spinner_height">
             </Spinner>
             <TextView
@@ -118,7 +180,7 @@
                 android:layout_height="@dimen/spinner_text_height"
                 android:text="년"/>
             <Spinner
-                android:id="@+id/add_month_spinner"
+                android:id="@+id/sub_end_month_spinner"
                 android:layout_width="@dimen/spinner_width"
                 android:layout_height="@dimen/spinner_height">
             </Spinner>
@@ -127,7 +189,7 @@
                 android:layout_height="@dimen/spinner_text_height"
                 android:text="월"/>
             <Spinner
-                android:id="@+id/add_day_spinner"
+                android:id="@+id/sub_end_day_spinner"
                 android:layout_width="@dimen/spinner_width"
                 android:layout_height="@dimen/spinner_height">
             </Spinner>
@@ -137,13 +199,36 @@
                 android:text="일"/>
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/sub_title_edit"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:hint="소제목"/>
+
+            <EditText
+                android:id="@+id/sub_info_edit"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:inputType="textMultiLine"
+                android:ems="3"
+                android:hint="내용"/>
 
 
-        </ScrollView>
+            <ScrollView
+                android:id="@+id/sub_schedule_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/sub_schedule_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
