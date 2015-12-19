@@ -1,4 +1,4 @@
-package com.softwork.ydk_lsj.dessin;
+package com.softwork.ydk_lsj.dessin.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,13 +9,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
+import com.softwork.ydk_lsj.dessin.Loyout.DayLinearLayout;
+import com.softwork.ydk_lsj.dessin.Loyout.ScheduleLinearLayout;
+import com.softwork.ydk_lsj.dessin.R;
 
 public class MainActivity extends Activity {
     private LinearLayout dayScheduleLayout;
 
     private ScrollView scheduleScrollView;
 
-    private DayLinearLayout  dayLayout;
+    private DayLinearLayout dayLayout;
     private ScheduleLinearLayout scheduleLayout;
 
     private TextView yearTextView;
@@ -52,7 +55,8 @@ public class MainActivity extends Activity {
     }
 
     public void onClickPlusButton(View v) {
-        Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
+        Intent intent = new Intent(MainActivity.this,
+                AddScheduleActivity.class);
         startActivity(intent);
     }
 

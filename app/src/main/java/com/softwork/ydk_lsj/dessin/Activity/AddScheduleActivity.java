@@ -1,4 +1,4 @@
-package com.softwork.ydk_lsj.dessin;
+package com.softwork.ydk_lsj.dessin.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
+import com.softwork.ydk_lsj.dessin.R;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     private Spinner addYearSpinner, addMonthSpinner, addDaySpinner;
     private ArrayAdapter<String> yearAdapter, monthAdapter, dayAdapter;
     private String startyear, startmonth, startday;
-    private String endyear, endmonth, endday
+    private String endyear, endmonth, endday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,13 @@ public class AddScheduleActivity extends AppCompatActivity {
         startYearSpinner = (Spinner)findViewById(R.id.start_year_spinner);
         startMonthSpinner = (Spinner)findViewById(R.id.start_month_spinner);
         startDaySpinner = (Spinner)findViewById(R.id.start_day_spinner);
-        setSpinner(startYearSpinner, startMonthSpinner, startDaySpinner, startyear, startmonth, startday);
+        setSpinner(startYearSpinner, startMonthSpinner, startDaySpinner);
 
         //endSpinner 설정
         endYearSpinner = (Spinner)findViewById(R.id.end_year_spinner);
         endMonthSpinner = (Spinner)findViewById(R.id.end_month_spinner);
         endDaySpinner = (Spinner)findViewById(R.id.end_day_spinner);
-        setSpinner(endYearSpinner, endMonthSpinner, endDaySpinner, endyear, endmonth, endday);
+        setSpinner(endYearSpinner, endMonthSpinner, endDaySpinner);
 
 
     }

@@ -1,13 +1,14 @@
-package com.softwork.ydk_lsj.dessin;
+package com.softwork.ydk_lsj.dessin.Activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+
+import com.softwork.ydk_lsj.dessin.R;
 
 public class SplashActivity extends Activity {
     private ImageView splashImage;

@@ -1,4 +1,4 @@
-package com.softwork.ydk_lsj.dessin;
+package com.softwork.ydk_lsj.dessin.Loyout;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
+import com.softwork.ydk_lsj.dessin.R;
 
 /**
  * Make Day Linear Layout

@@ -1,4 +1,4 @@
-package com.softwork.ydk_lsj.dessin;
+package com.softwork.ydk_lsj.dessin.Loyout;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
+import com.softwork.ydk_lsj.dessin.R;
+import com.softwork.ydk_lsj.dessin.ScheduleBar;
 
 import java.util.ArrayList;
 
@@ -36,17 +38,35 @@ public class ScheduleLinearLayout extends LinearLayout {
     public void makeLayoutsAndBars() {
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, getResources().getDisplayMetrics());
         int layoutWidth = DataProvider.getInstance().getDayOfMonth() * size;
+
+        // TODO - 20 is number of schdeule
         for(int i = 0; i < 20; i++) {
             FrameLayout newLayout = new FrameLayout(getContext());
             LayoutParams dayButtonParams = new LayoutParams(
                     layoutWidth,
-                    (int) getResources().getDimension(R.dimen.schedule_bar_height),
+                    LayoutParams.WRAP_CONTENT,
                     0);
+
+            // TODO - Should add schedule bar
+            if(i == 0)
+                newLayout.addView(new ScheduleBar(getContext()));
+
+            if(i == 1)
+                newLayout.addView(new ScheduleBar(getContext()));
+
             newLayout.setLayoutParams(dayButtonParams);
             newLayout.setBackgroundResource(R.drawable.light_underbar_layout_background);
 
             layouts.add(newLayout);
             this.addView(newLayout);
         }
+    }
+
+    public ArrayList<FrameLayout> getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(ArrayList<FrameLayout> layouts) {
+        this.layouts = layouts;
     }
 }
