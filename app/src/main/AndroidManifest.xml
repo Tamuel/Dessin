@@ -24,6 +24,11 @@
             android:enabled="true"
             android:exported="true" >
         </provider>
+
+        <activity
+            android:name=".AddScheduleActivity"
+            android:label="@string/title_activity_add_schedule" >
+        </activity>
     </application>
 
 </manifest>

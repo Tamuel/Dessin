@@ -50,7 +50,8 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="@dimen/title_bar_text_margin"
             android:layout_width="@dimen/schedule_add_button_size"
-            android:layout_height="@dimen/schedule_add_button_size" />
+            android:layout_height="@dimen/schedule_add_button_size"
+            android:onClick="onClickPlusButton"/>
 
     </FrameLayout>
 

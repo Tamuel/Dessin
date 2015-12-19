@@ -1,7 +1,9 @@
 package com.softwork.ydk_lsj.dessin;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -47,6 +49,11 @@ public class MainActivity extends Activity {
         scheduleScrollView.addView(scheduleLayout);
 
         dayScheduleLayout.addView(scheduleScrollView);
+    }
+
+    public void onClickPlusButton(View v) {
+        Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
+        startActivity(intent);
     }
 
 }
