@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -230,18 +231,33 @@ public class AddScheduleActivity extends AppCompatActivity {
         TextView subDate = new TextView(this);
         TextView subTitleText = new TextView(this);
         TextView subInfoText = new TextView(this);
+        Button deleteButton = new Button(this);
 
         subDate.setWidth(500);
         subTitleText.setWidth(500);
         subInfoText.setWidth(800);
 
+        deleteButton.setWidth(35);
+        deleteButton.setHeight(35);
+        deleteButton.setText("-");
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
         subDate.setText(substartyear + "년 " + substartmonth + "월 " + substartday + "일 ~ " + subendyear + "년 " + subendmonth + "월 " + subendday);
         subTitleText.setText(subTitle.getText().toString());
         subInfoText.setText(subInfo.getText().toString());
 
-        subLinear.addView(subDate);
+        linearLayout.addView(subDate);
+        linearLayout.addView(deleteButton);
+        subLinear.addView(linearLayout);
         subLinear.addView(subTitleText);
         subLinear.addView(subInfoText);
-
     }
 }
