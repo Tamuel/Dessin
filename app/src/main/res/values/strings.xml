@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Dessin</string>
     <string name="add_schedule">+</string>
+    <string name="title_activity_add_schedule">AddScheduleActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
