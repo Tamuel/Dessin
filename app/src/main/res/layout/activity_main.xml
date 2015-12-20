@@ -43,15 +43,27 @@
 
         <Button
             android:id="@+id/add_new_schedule_button"
-            android:text="@string/add_schedule"
+            android:text="@string/add_schedule_icon"
             android:textSize="@dimen/schedule_add_button_text_size"
             android:textColor="@color/gray"
             android:background="@drawable/cyon_simple_button"
             android:layout_gravity="right|center_vertical"
+            android:gravity="center"
             android:layout_marginRight="@dimen/title_bar_text_margin"
             android:layout_width="@dimen/schedule_add_button_size"
             android:layout_height="@dimen/schedule_add_button_size"
             android:onClick="onClickPlusButton"/>
+
+        <ToggleButton
+            android:id="@+id/change_day_to_date_button"
+            android:textOn=""
+            android:textOff=""
+            android:background="@drawable/day_to_date_toggle_background"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/day_to_date_right_margin"
+            android:layout_width="@dimen/schedule_add_button_size"
+            android:layout_height="@dimen/schedule_add_button_size"
+            android:onClick="onDayToDateToggle"/>
 
     </FrameLayout>
 

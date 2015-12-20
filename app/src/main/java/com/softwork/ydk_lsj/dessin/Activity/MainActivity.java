@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
-import com.softwork.ydk_lsj.dessin.Loyout.DayLinearLayout;
-import com.softwork.ydk_lsj.dessin.Loyout.ScheduleLinearLayout;
+import com.softwork.ydk_lsj.dessin.Layout.DayLinearLayout;
+import com.softwork.ydk_lsj.dessin.Layout.ScheduleLinearLayout;
 import com.softwork.ydk_lsj.dessin.R;
 
 public class MainActivity extends Activity {
@@ -58,6 +59,14 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this,
                 AddScheduleActivity.class);
         startActivity(intent);
+    }
+
+    public void onDayToDateToggle(View v) {
+        if(((ToggleButton)v).isChecked()) {
+            dayLayout.setButtonsToDayOfWeek();
+        } else {
+            dayLayout.setButtonsToDay();
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.softwork.ydk_lsj.dessin.Loyout;
+package com.softwork.ydk_lsj.dessin.Layout;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -8,14 +8,20 @@ import android.widget.LinearLayout;
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
 import com.softwork.ydk_lsj.dessin.R;
 
+import java.util.ArrayList;
+
 /**
  * Make Day Linear Layout
  * Created by DongKyu on 2015-12-10.
  */
 public class DayLinearLayout extends LinearLayout  {
 
+    private ArrayList<Button> dayButtons;
+
     public DayLinearLayout(Context context) {
         super(context);
+
+        dayButtons = new ArrayList<Button>();
 
         LayoutParams layoutParams = new LayoutParams(
                 LayoutParams.WRAP_CONTENT,
@@ -45,49 +51,38 @@ public class DayLinearLayout extends LinearLayout  {
             int border = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15f, getResources().getDisplayMetrics());
             int border2 = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, getResources().getDisplayMetrics());
             dayButtonParams.setMargins(border, border2, border, border2);
-//            newDayButton.setGravity();
+
             newDayButton.setPadding(0, 0, 0, 0);
             newDayButton.setLayoutParams(dayButtonParams);
-            String dayOfWeek = "";
-            switch (DataProvider.getInstance().getDayOfWeek(day)) {
-                case 1:
-                case 7:
-                    dayOfWeek = "S";
-                    break;
 
-                case 2:
-                    dayOfWeek = "M";
-                    break;
-
-                case 3:
-                    dayOfWeek = "T";
-                    break;
-
-                case 4:
-                    dayOfWeek = "W";
-                    break;
-
-                case 5:
-                    dayOfWeek = "T";
-                    break;
-
-                case 6:
-                    dayOfWeek = "F";
-                    break;
-            }
             newDayButton.setText(day + "");
             newDayButton.setBackgroundResource(R.drawable.day_simple_button);
-            if(today == day) {
+
+            if(DataProvider.getInstance().getDay() == day) {
                 newDayButton.setTextColor(getResources().getColor(R.color.white));
                 newDayButton.setBackgroundResource(R.drawable.today_simple_button);
-                newDayButton.setText(dayOfWeek);
             } else if(DataProvider.getInstance().getDayOfWeek(day) == 1)
                 newDayButton.setTextColor(getResources().getColor(R.color.hotPink));
             else
                 newDayButton.setTextColor(getResources().getColor(R.color.gray));
+
             newDayButton.setTextSize((int) (getResources().getDimension(R.dimen.day_button_text_size) / getResources().getDisplayMetrics().density));
 
+            dayButtons.add(newDayButton);
             this.addView(newDayButton);
+        }
+    }
+
+    public void setButtonsToDay() {
+        for(int i = 0; i < dayButtons.size(); i++)
+            dayButtons.get(i).setText((i + 1) + "");
+    }
+
+    public void setButtonsToDayOfWeek() {
+        String dayOfWeek = "";
+        for(int i = 0; i < dayButtons.size(); i++) {
+            dayOfWeek = getResources().getStringArray(R.array.day)[DataProvider.getInstance().getDayOfWeek((i + 1)) - 1];
+            dayButtons.get(i).setText(dayOfWeek);
         }
     }
 }

@@ -1,5 +1,9 @@
 package com.softwork.ydk_lsj.dessin.DataProvider;
 
+import android.app.Application;
+
+import com.softwork.ydk_lsj.dessin.R;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,6 +14,26 @@ import java.util.GregorianCalendar;
 public class DataProvider {
     private static DataProvider instance;
     private GregorianCalendar date;
+
+    public enum Day {
+        SUN(1),
+        MON(2),
+        TUE(3),
+        WED(4),
+        THR(5),
+        FRI(6),
+        SAT(7);
+
+        private int value;
+
+        private Day(int v) {
+            value = v;
+        }
+
+        public int getInt() {
+            return value;
+        }
+    }
 
     private DataProvider() {
         date = new GregorianCalendar( );

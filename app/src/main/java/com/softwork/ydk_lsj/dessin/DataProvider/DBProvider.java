@@ -141,9 +141,15 @@ public class DBProvider extends ContentProvider {
                 Log.e("SELECT * FROM ONE", uri.getPathSegments().get(0));
                 sql = "SELECT * FROM ";
                 sql += uri.getPathSegments().get(0);
-                sql += " WHERE " + selection + " = '";
-                sql += selectionArgs[0];
-                sql += "'";
+                try{
+                    Integer.parseInt(selectionArgs[0]);
+                    sql += " WHERE " + selection + " = ";
+                    sql += selectionArgs[0];
+                } catch (Exception e) {
+                    sql += " WHERE " + selection + " = '";
+                    sql += selectionArgs[0];
+                    sql += "'";
+                }
                 break;
         }
 

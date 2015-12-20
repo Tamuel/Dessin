@@ -1,7 +1,11 @@
 package com.softwork.ydk_lsj.dessin.Activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,12 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.softwork.ydk_lsj.dessin.DataProvider.DBProvider;
 import com.softwork.ydk_lsj.dessin.DataProvider.DataProvider;
 import com.softwork.ydk_lsj.dessin.R;
 
 import java.util.ArrayList;
 
-public class AddScheduleActivity extends AppCompatActivity {
+public class AddScheduleActivity extends Activity {
     private ArrayList<String> yearArray, monthArray, dayArray;
     private Spinner startYearSpinner, startMonthSpinner, startDaySpinner;
     private Spinner endYearSpinner, endMonthSpinner, endDaySpinner;
@@ -29,7 +34,20 @@ public class AddScheduleActivity extends AppCompatActivity {
     private String endyear, endmonth, endday;
     private String substartyear, substartmonth, substartday;
     private String subendyear, subendmonth, subendday;
-    private LinearLayout subLinear; //계속해서 추가되는 세부일정들이 들어가는 LinearLayout
+    private LinearLayout subLinear; //계속해서 추가되는 세부일정들이 들어가는
+
+    private EditText scheduleTitle;
+    private EditText scheduleInformation;
+
+    private ArrayList<String> subScheduleTitle;
+    private ArrayList<String> subScheduleInfo;
+    private ArrayList<String> subScheduleStartYear;
+    private ArrayList<String> subScheduleStartMonth;
+    private ArrayList<String> subScheduleStartDay;
+    private ArrayList<String> subScheduleEndYear;
+    private ArrayList<String> subScheduleEndMonth;
+    private ArrayList<String> subScheduleEndDay;
+
     private enum SpinnerName {
         STARTSPINNER,
         ENDSPINNER,
@@ -41,6 +59,21 @@ public class AddScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
+
+        subScheduleTitle = new ArrayList<String>();
+        subScheduleInfo = new ArrayList<String>();
+
+        subScheduleStartYear = new ArrayList<String>();
+        subScheduleStartMonth = new ArrayList<String>();
+        subScheduleStartDay = new ArrayList<String>();
+
+        subScheduleEndYear = new ArrayList<String>();
+        subScheduleEndMonth = new ArrayList<String>();
+        subScheduleEndDay = new ArrayList<String>();
+
+
+        scheduleTitle = (EditText)findViewById(R.id.title_edit);
+        scheduleInformation = (EditText)findViewById(R.id.info_edit);
 
         //spinner에 들어갈 년/월/일의 arrayList 설정
         yearArray = new ArrayList<String>();
@@ -254,10 +287,80 @@ public class AddScheduleActivity extends AppCompatActivity {
         subTitleText.setText(subTitle.getText().toString());
         subInfoText.setText(subInfo.getText().toString());
 
+        subScheduleTitle.add(subTitle.getText().toString());
+        subScheduleInfo.add(subInfo.getText().toString());
+
+        subScheduleStartYear.add(substartyear);
+        subScheduleStartMonth.add(substartmonth);
+        subScheduleStartDay.add(substartday);
+
+        subScheduleEndYear.add(subendyear);
+        subScheduleEndMonth.add(subendmonth);
+        subScheduleEndDay.add(subendday);
+
         linearLayout.addView(subDate);
         linearLayout.addView(deleteButton);
         subLinear.addView(linearLayout);
         subLinear.addView(subTitleText);
         subLinear.addView(subInfoText);
+    }
+
+
+    /**
+     * When add schedule
+     * to DB
+     * @param v
+     */
+    public void onClickAddScheduleButton(View v) {
+        ContentResolver cr = getContentResolver();
+        ContentValues newSchedule = new ContentValues();
+
+        /** Add new schedule */
+        String startDate = startYearSpinner.getSelectedItem().toString() + "-" +
+                startMonthSpinner.getSelectedItem().toString() + "-" +
+                startDaySpinner.getSelectedItem().toString();
+        String endDate = endYearSpinner.getSelectedItem().toString() + "-" +
+                endMonthSpinner.getSelectedItem().toString() + "-" +
+                endDaySpinner.getSelectedItem().toString();
+
+        Log.i("NEW SCHEDULE : ", scheduleTitle.getText().toString() + " " + scheduleInformation.getText().toString() + " " + startDate + " " + endDate);
+        newSchedule.put(DBProvider.SCHEDULE_TITLE,
+                scheduleTitle.getText().toString());
+        newSchedule.put(DBProvider.SCHEDULE_INFORMATION,
+                scheduleInformation.getText().toString());
+        newSchedule.put(DBProvider.SCHEDULE_START_DATE,
+                startDate);
+        newSchedule.put(DBProvider.SCHEDULE_END_DATE,
+                endDate);
+
+        Uri newScheduleUri = cr.insert(DBProvider.SCHEDULE_TABLE_CONTENT_URI, newSchedule);
+        Log.i("NEW SCHEDULE URI!!!!", newScheduleUri.toString() + " " + newScheduleUri.getPathSegments().get(1));
+
+        int newScheduleID = Integer.parseInt(newScheduleUri.getPathSegments().get(1));
+
+        /** Add new additional schedules */
+        for(int i = 0; i < subScheduleTitle.size(); i++) {
+            ContentValues newSubSchedule = new ContentValues();
+            String addStartDate = subScheduleStartYear.get(i) + "-" +
+                    subScheduleStartMonth.get(i) + "-" +
+                    subScheduleStartDay.get(i);
+            String addEndDate = subScheduleEndYear.get(i) + "-" +
+                    subScheduleEndMonth.get(i) + "-" +
+                    subScheduleEndDay.get(i);
+
+            Log.i("NEW ADD SCHEDULE : ", subScheduleTitle.get(i) + " " + subScheduleInfo.get(i) + " " + addStartDate + " " + addEndDate);
+            newSubSchedule.put(DBProvider.ADDITIONAL_SCHEDULE_TITLE,
+                    subScheduleTitle.get(i));
+            newSubSchedule.put(DBProvider.ADDITIONAL_SCHEDULE_INFORMATION,
+                    subScheduleInfo.get(i));
+            newSubSchedule.put(DBProvider.ADDITIONAL_SCHEDULE_START_DATE,
+                    addStartDate);
+            newSubSchedule.put(DBProvider.ADDITIONAL_SCHEDULE_END_DATE,
+                    addEndDate);
+            newSubSchedule.put(DBProvider.SCHEDULE_TABLE_FK,
+                    newScheduleID);
+
+            Uri newAddScheduleUri = cr.insert(DBProvider.ADDITIONAL_SCHEDULE_TABLE_CONTENT_URI, newSubSchedule);
+        }
     }
 }
