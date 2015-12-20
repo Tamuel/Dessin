@@ -54,7 +54,7 @@ public class DBProvider extends ContentProvider {
         matcher.addURI(AUTHORITY, ADDITIONAL_SCHEDULE_TABLE + "/*", ADDITIONAL_SCHEDULE_TABLE_GETONE);
     }
 
-    SQLiteDatabase timeTableDB;
+    SQLiteDatabase ScheduleDB;
     class timeTableDBHelper extends SQLiteOpenHelper {
         public timeTableDBHelper(Context c) {
             super(c, "dessin.de", null, 1);
@@ -62,7 +62,6 @@ public class DBProvider extends ContentProvider {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-
             db.execSQL("CREATE TABLE IF NOT EXISTS " + SCHEDULE_TABLE
                     + " (" + SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + SCHEDULE_TITLE + " TEXT, "
@@ -92,12 +91,12 @@ public class DBProvider extends ContentProvider {
     public boolean onCreate() {
         timeTableDBHelper timeTableHelper = new timeTableDBHelper(getContext());
 
-        timeTableDB = timeTableHelper.getWritableDatabase();
-        timeTableDB.execSQL("PRAGMA foreign_keys=ON;"); // Foreign Key 사용 허용
+        ScheduleDB = timeTableHelper.getWritableDatabase();
+        ScheduleDB.execSQL("PRAGMA foreign_keys=ON;"); // Foreign Key 사용 허용
 
-        Log.e("DB", timeTableDB.toString());
+        Log.e("DB", ScheduleDB.toString());
 
-        return (timeTableDB != null);
+        return (ScheduleDB != null);
     }
 
     @Override
@@ -107,7 +106,7 @@ public class DBProvider extends ContentProvider {
 
         switch (matcher.match(uri)) {
             case ADDITIONAL_SCHEDULE_TABLE_GETALL:
-                cnt = timeTableDB.delete(ADDITIONAL_SCHEDULE_TABLE, selection, selectionArgs);
+                cnt = ScheduleDB.delete(ADDITIONAL_SCHEDULE_TABLE, selection, selectionArgs);
                 break;
 
             case ADDITIONAL_SCHEDULE_TABLE_GETONE:
@@ -115,7 +114,7 @@ public class DBProvider extends ContentProvider {
                 if(TextUtils.isEmpty(selection) == false) {
                     where += " AND " + selection;
                 }
-                cnt = timeTableDB.delete(ADDITIONAL_SCHEDULE_TABLE, where, selectionArgs);
+                cnt = ScheduleDB.delete(ADDITIONAL_SCHEDULE_TABLE, where, selectionArgs);
                 break;
         }
 
@@ -141,7 +140,8 @@ public class DBProvider extends ContentProvider {
                 Log.e("SELECT * FROM ONE", uri.getPathSegments().get(0));
                 sql = "SELECT * FROM ";
                 sql += uri.getPathSegments().get(0);
-                try{
+
+                try {
                     Integer.parseInt(selectionArgs[0]);
                     sql += " WHERE " + selection + " = ";
                     sql += selectionArgs[0];
@@ -159,7 +159,7 @@ public class DBProvider extends ContentProvider {
 
         sql += ";";
 
-        Cursor cur = timeTableDB.rawQuery(sql, null);
+        Cursor cur = ScheduleDB.rawQuery(sql, null);
         return cur;
     }
 
@@ -182,12 +182,12 @@ public class DBProvider extends ContentProvider {
         Uri notiuri = null;
         switch (matcher.match(uri)) {
             case SCHEDULE_TABLE_GETALL:
-                row = timeTableDB.insert(SCHEDULE_TABLE, null, values);
+                row = ScheduleDB.insert(SCHEDULE_TABLE, null, values);
                 notiuri = ContentUris.withAppendedId(SCHEDULE_TABLE_CONTENT_URI, row);
                 break;
 
             case ADDITIONAL_SCHEDULE_TABLE_GETALL:
-                row = timeTableDB.insert(ADDITIONAL_SCHEDULE_TABLE, null, values);
+                row = ScheduleDB.insert(ADDITIONAL_SCHEDULE_TABLE, null, values);
                 notiuri = ContentUris.withAppendedId(ADDITIONAL_SCHEDULE_TABLE_CONTENT_URI, row);
                 break;
         }
@@ -205,7 +205,7 @@ public class DBProvider extends ContentProvider {
 
         switch (matcher.match(uri)) {
             case ADDITIONAL_SCHEDULE_TABLE_GETALL:
-                cnt = timeTableDB.update(ADDITIONAL_SCHEDULE_TABLE, values, selection, selectionArgs);
+                cnt = ScheduleDB.update(ADDITIONAL_SCHEDULE_TABLE, values, selection, selectionArgs);
                 break;
 
             case ADDITIONAL_SCHEDULE_TABLE_GETONE:
@@ -213,7 +213,7 @@ public class DBProvider extends ContentProvider {
                 if(TextUtils.isEmpty(selection) == false) {
                     where += " AND " + selection;
                 }
-                cnt = timeTableDB.update(ADDITIONAL_SCHEDULE_TABLE, values, where, selectionArgs);
+                cnt = ScheduleDB.update(ADDITIONAL_SCHEDULE_TABLE, values, where, selectionArgs);
                 break;
         }
 

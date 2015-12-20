@@ -87,9 +87,9 @@ public class AddScheduleActivity extends Activity {
         startDaySpinner = (Spinner)findViewById(R.id.start_day_spinner);
         setSpinner(startYearSpinner, startMonthSpinner, startDaySpinner, SpinnerName.STARTSPINNER);
 
-        startYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getYear())));
-        startMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getMonth())));
-        startDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getDay())));
+        startYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedYear())));
+        startMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedMonth())));
+        startDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedDay())));
 
         //endSpinner 설정
         endYearSpinner = (Spinner)findViewById(R.id.end_year_spinner);
@@ -97,9 +97,9 @@ public class AddScheduleActivity extends Activity {
         endDaySpinner = (Spinner)findViewById(R.id.end_day_spinner);
         setSpinner(endYearSpinner, endMonthSpinner, endDaySpinner, SpinnerName.ENDSPINNER);
 
-        endYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getYear())));
-        endMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getMonth())));
-        endDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getDay())));
+        endYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedYear())));
+        endMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedMonth())));
+        endDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedDay())));
 
         //subStartSpinner 설정
         subStartYearSpinner = (Spinner)findViewById(R.id.sub_start_year_spinner);
@@ -107,9 +107,9 @@ public class AddScheduleActivity extends Activity {
         subStartDaySpinner = (Spinner)findViewById(R.id.sub_start_day_spinner);
         setSpinner(subStartYearSpinner, subStartMonthSpinner, subStartDaySpinner, SpinnerName.SUBSTARTSPINNER);
 
-        subStartYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getYear())));
-        subStartMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getMonth())));
-        subStartDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getDay())));
+        subStartYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedYear())));
+        subStartMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedMonth())));
+        subStartDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedDay())));
 
         //subEndSpinner 설정
         subEndYearSpinner = (Spinner)findViewById(R.id.sub_end_year_spinner);
@@ -117,9 +117,9 @@ public class AddScheduleActivity extends Activity {
         subEndDaySpinner = (Spinner)findViewById(R.id.sub_end_day_spinner);
         setSpinner(subEndYearSpinner, subEndMonthSpinner, subEndDaySpinner, SpinnerName.SUBENDSPINNER);
 
-        subEndYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getYear())));
-        subEndMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getMonth())));
-        subEndDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getDay())));
+        subEndYearSpinner.setSelection(yearArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedYear())));
+        subEndMonthSpinner.setSelection(monthArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedMonth())));
+        subEndDaySpinner.setSelection(dayArray.indexOf(String.valueOf(DataProvider.getInstance().getSelectedDay())));
 
         //LinearLayout 설정
         subLinear = (LinearLayout)findViewById(R.id.sub_schedule_linear);
@@ -152,7 +152,7 @@ public class AddScheduleActivity extends Activity {
         monthArray.clear();
         dayArray.clear();
 
-        for(int i=DataProvider.getInstance().getYear()-5; i<DataProvider.getInstance().getYear()+10; i++)
+        for(int i=DataProvider.getInstance().getSelectedYear()-5; i<DataProvider.getInstance().getSelectedYear()+10; i++)
             yearArray.add(String.valueOf(i));
         for(int i=1; i<=12; i++)
             monthArray.add(String.valueOf(i));
@@ -362,5 +362,7 @@ public class AddScheduleActivity extends Activity {
 
             Uri newAddScheduleUri = cr.insert(DBProvider.ADDITIONAL_SCHEDULE_TABLE_CONTENT_URI, newSubSchedule);
         }
+
+        finish();
     }
 }

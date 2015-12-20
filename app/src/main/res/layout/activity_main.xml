@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/title_bar_height">
 
-            <TextView
-                android:id="@+id/year_text_view"
+            <Spinner
+                android:id="@+id/year_spinner"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/title_bar_year_text_size"
@@ -28,8 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent" />
 
-            <TextView
-                android:id="@+id/month_text_view"
+            <Spinner
+                android:id="@+id/month_spinner"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/title_bar_month_text_size"
@@ -68,6 +68,7 @@
     </FrameLayout>
 
     <HorizontalScrollView
+        android:id="@+id/schedule_outer_scroll_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true">

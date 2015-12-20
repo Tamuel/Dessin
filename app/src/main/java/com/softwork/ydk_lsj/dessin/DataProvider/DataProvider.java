@@ -1,11 +1,6 @@
 package com.softwork.ydk_lsj.dessin.DataProvider;
 
-import android.app.Application;
-
-import com.softwork.ydk_lsj.dessin.R;
-
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -14,6 +9,10 @@ import java.util.GregorianCalendar;
 public class DataProvider {
     private static DataProvider instance;
     private GregorianCalendar date;
+
+    private int year;
+    private int month;
+    private int day;
 
     public enum Day {
         SUN(1),
@@ -36,7 +35,10 @@ public class DataProvider {
     }
 
     private DataProvider() {
-        date = new GregorianCalendar( );
+        date = new GregorianCalendar();
+        year = getCurrentYear();
+        month = getCurrentMonth();
+        day = getCurrentDay();
     }
 
     public static DataProvider getInstance() {
@@ -49,8 +51,8 @@ public class DataProvider {
 
     public int getDayOfWeek(int day) {
         Calendar cal= Calendar.getInstance ();
-        cal.set(Calendar.YEAR, getYear());
-        cal.set(Calendar.MONTH, getMonth() - 1);
+        cal.set(Calendar.YEAR, getCurrentYear());
+        cal.set(Calendar.MONTH, getCurrentMonth() - 1);
         cal.set(Calendar.DATE, day);
         return cal.get(date.DAY_OF_WEEK);
     }
@@ -59,19 +61,49 @@ public class DataProvider {
         return date;
     }
 
-    public int getDay() {
+    public int getCurrentDay() {
         return date.get(date.DATE);
     }
 
-    public int getYear() {
+    public int getCurrentYear() {
         return date.get(date.YEAR);
     }
 
-    public int getMonth() {
+    public int getCurrentMonth() {
         return date.get(date.MONTH) + 1;
     }
 
-    public int getDayOfMonth() {
+    public int getCurrentDayOfMonth() {
         return date.getActualMaximum(date.DAY_OF_MONTH);
+    }
+
+    public int getSelectedYear() {
+        return year;
+    }
+
+    public int getSelectedMonth() {
+        return month;
+    }
+
+    public int getSelectedDay() {
+        return day;
+    }
+
+    public int getSelectedDayOfMonth() {
+        GregorianCalendar tempDate = new GregorianCalendar();;
+        tempDate.set(getSelectedYear(), getSelectedMonth() - 1, getSelectedDay());
+        return tempDate.getActualMaximum(date.DAY_OF_MONTH);
+    }
+
+    public void setSelectedYear(int year) {
+        this.year = year;
+    }
+
+    public void setSelectedMonth(int month) {
+        this.month = month;
+    }
+
+    public void setSelectedDay(int day) {
+        this.day = day;
     }
 }

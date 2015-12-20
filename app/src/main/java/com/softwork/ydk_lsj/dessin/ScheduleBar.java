@@ -68,7 +68,7 @@ public class ScheduleBar extends FrameLayout implements View.OnClickListener{
         /** Set layout params */
         int border = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15f, getResources().getDisplayMetrics());
         layoutWidth = (endDate.getDate() - startDate.getDate() + 1) * ((int)getResources().getDimension(R.dimen.day_button_size) + border * 2);
-        layoutPosition = (startDate.getDate() - 1) * ((int)getResources().getDimension(R.dimen.day_button_size) + border *2);
+        layoutPosition = (startDate.getDate() - 1) * ((int)getResources().getDimension(R.dimen.day_button_size) + border * 2);
         LayoutParams layoutParams = new LayoutParams(
                 layoutWidth,
                 (int) getResources().getDimension(R.dimen.schedule_bar_narrow_height),
@@ -194,7 +194,7 @@ public class ScheduleBar extends FrameLayout implements View.OnClickListener{
         if(!isWide) { // When to wide
             scheduleTitleView.setSingleLine(false);
             for(TextView temp : addScheduleTitleViews) {
-                temp.setGravity(Gravity.TOP);
+//                temp.setGravity(Gravity.TOP);
                 temp.setSingleLine(false);
             }
             LayoutParams layoutParams = new LayoutParams(
@@ -206,7 +206,7 @@ public class ScheduleBar extends FrameLayout implements View.OnClickListener{
         } else { // When to narrow
             scheduleTitleView.setSingleLine();
             for(TextView temp : addScheduleTitleViews) {
-                temp.setGravity(Gravity.CENTER_VERTICAL);
+//                temp.setGravity(Gravity.CENTER_VERTICAL);
                 temp.setSingleLine();
             }
             LayoutParams layoutParams = new LayoutParams(

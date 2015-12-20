@@ -39,9 +39,9 @@ public class DayLinearLayout extends LinearLayout  {
      */
     public void makeDayButtons() {
         int day = 0;
-        int today = DataProvider.getInstance().getDay();
+        int today = DataProvider.getInstance().getCurrentDay();
 
-        for(int i = 0; i < DataProvider.getInstance().getDayOfMonth(); i++) {
+        for(int i = 0; i < DataProvider.getInstance().getSelectedDayOfMonth(); i++) {
             day = i + 1;
             Button newDayButton = new Button(getContext());
             LayoutParams dayButtonParams = new LayoutParams(
@@ -58,7 +58,9 @@ public class DayLinearLayout extends LinearLayout  {
             newDayButton.setText(day + "");
             newDayButton.setBackgroundResource(R.drawable.day_simple_button);
 
-            if(DataProvider.getInstance().getDay() == day) {
+            if(DataProvider.getInstance().getSelectedYear() == DataProvider.getInstance().getCurrentYear() &&
+                    DataProvider.getInstance().getSelectedMonth() == DataProvider.getInstance().getCurrentMonth() &&
+                    DataProvider.getInstance().getCurrentDay() == day) {
                 newDayButton.setTextColor(getResources().getColor(R.color.white));
                 newDayButton.setBackgroundResource(R.drawable.today_simple_button);
             } else if(DataProvider.getInstance().getDayOfWeek(day) == 1)
@@ -81,8 +83,10 @@ public class DayLinearLayout extends LinearLayout  {
     public void setButtonsToDayOfWeek() {
         String dayOfWeek = "";
         for(int i = 0; i < dayButtons.size(); i++) {
-            dayOfWeek = getResources().getStringArray(R.array.day)[DataProvider.getInstance().getDayOfWeek((i + 1)) - 1];
-            dayButtons.get(i).setText(dayOfWeek);
+            if(DataProvider.getInstance().getDayOfWeek((i + 1)) != 1) {
+                dayOfWeek = getResources().getStringArray(R.array.day)[DataProvider.getInstance().getDayOfWeek((i + 1)) - 1];
+                dayButtons.get(i).setText(dayOfWeek);
+            }
         }
     }
 }

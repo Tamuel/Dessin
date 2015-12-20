@@ -3,6 +3,7 @@ package com.softwork.ydk_lsj.dessin.Layout;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.FrameLayout;
@@ -43,12 +44,29 @@ public class ScheduleLinearLayout extends LinearLayout {
 
     public void makeLayoutsAndBars() {
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, getResources().getDisplayMetrics());
-        int layoutWidth = DataProvider.getInstance().getDayOfMonth() * size;
+        int layoutWidth = DataProvider.getInstance().getSelectedDayOfMonth() * size;
 
         ContentResolver cr = getContext().getContentResolver();
         Cursor cur;
 
-        cur = cr.query(DBProvider.SCHEDULE_TABLE_CONTENT_URI, null, null, null, " ORDER BY " + DBProvider.SCHEDULE_ID + " asc");
+        String sql = " WHERE (" + DBProvider.SCHEDULE_START_DATE + " >= '" +
+                DataProvider.getInstance().getSelectedYear() + "-" +
+                DataProvider.getInstance().getSelectedMonth() + "-" +
+                "1' AND " + DBProvider.SCHEDULE_START_DATE + " <= '" +
+                DataProvider.getInstance().getSelectedYear() + "-" +
+                DataProvider.getInstance().getSelectedMonth() + "-" +
+                + DataProvider.getInstance().getSelectedDayOfMonth() + "') OR " +
+                "(" + DBProvider.SCHEDULE_END_DATE + " >= '" +
+                DataProvider.getInstance().getSelectedYear() + "-" +
+                DataProvider.getInstance().getSelectedMonth() + "-" +
+                "1' AND " + DBProvider.SCHEDULE_END_DATE + " <= '" +
+                DataProvider.getInstance().getSelectedYear() + "-" +
+                DataProvider.getInstance().getSelectedMonth() + "-" +
+                + DataProvider.getInstance().getSelectedDayOfMonth() + "')" +
+                " ORDER BY " + DBProvider.SCHEDULE_ID + " asc";
+
+        cur = cr.query(DBProvider.SCHEDULE_TABLE_CONTENT_URI, null, null, null, sql);
+        Log.i("SQL", sql);
 
         if (cur.getCount() != 0) {
             cur.moveToFirst();
