@@ -44,12 +44,12 @@
         <Button
             android:id="@+id/add_new_schedule_button"
             android:text="@string/add_schedule_icon"
-            android:textSize="@dimen/schedule_add_button_text_size"
+            android:textSize="20dp"
             android:textColor="@color/gray"
             android:background="@drawable/cyon_simple_button"
             android:layout_gravity="right|center_vertical"
-            android:gravity="center"
             android:layout_marginRight="@dimen/title_bar_text_margin"
+            android:gravity="center"
             android:layout_width="@dimen/schedule_add_button_size"
             android:layout_height="@dimen/schedule_add_button_size"
             android:onClick="onClickPlusButton"/>

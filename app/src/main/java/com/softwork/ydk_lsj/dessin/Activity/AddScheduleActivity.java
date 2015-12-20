@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,8 @@ public class AddScheduleActivity extends Activity {
     private String subendyear, subendmonth, subendday;
     private LinearLayout subLinear; //계속해서 추가되는 세부일정들이 들어가는
 
+    private ArrayList<LinearLayout> subScheduleLayouts;
+
     private EditText scheduleTitle;
     private EditText scheduleInformation;
 
@@ -60,6 +63,7 @@ public class AddScheduleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
 
+        subScheduleLayouts = new ArrayList<LinearLayout>();
         subScheduleTitle = new ArrayList<String>();
         subScheduleInfo = new ArrayList<String>();
 
@@ -266,24 +270,68 @@ public class AddScheduleActivity extends Activity {
         TextView subInfoText = new TextView(this);
         Button deleteButton = new Button(this);
 
-        subDate.setWidth(500);
+        LinearLayout.LayoutParams layoutSubDateParams = new LinearLayout.LayoutParams(
+                800,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                0);
+        layoutSubDateParams.gravity = Gravity.CENTER_VERTICAL;
+        subDate.setLayoutParams(layoutSubDateParams);
+
         subTitleText.setWidth(500);
         subInfoText.setWidth(800);
 
-        deleteButton.setWidth(35);
-        deleteButton.setHeight(35);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                (int) getResources().getDimension(R.dimen.schedule_bar_narrow_height),
+                (int) getResources().getDimension(R.dimen.schedule_bar_narrow_height),
+                0);
+
+        layoutParams.gravity = Gravity.CENTER_VERTICAL;
+        deleteButton.setLayoutParams(layoutParams);
+        deleteButton.setBackgroundResource(R.drawable.cyon_simple_button);
+        deleteButton.setPadding(0, 0, 0, 0);
+        deleteButton.setGravity(Gravity.CENTER);
         deleteButton.setText("-");
+        deleteButton.setTextColor(getResources().getColor(R.color.hotPink));
+
+        final LinearLayout outerLinearLayout = new LinearLayout(this);
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LinearLayout tempView = outerLinearLayout;
+                int index = subScheduleLayouts.indexOf(tempView);
+                subScheduleTitle.remove(index);
+                subScheduleInfo.remove(index);
 
+                subScheduleStartYear.remove(index);
+                subScheduleStartMonth.remove(index);
+                subScheduleStartDay.remove(index);
+
+                subScheduleEndYear.remove(index);
+                subScheduleEndMonth.remove(index);
+                subScheduleEndDay.remove(index);
+
+                subLinear.removeView(subScheduleLayouts.get(index));
+                subScheduleLayouts.remove(index);
             }
         });
 
+        outerLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        outerLinearLayout.setBackgroundResource(R.drawable.underbar_layout_background);
+
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                (int) getResources().getDimension(R.dimen.schedule_bar_narrow_height) + 20,
+                0);
+
         LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setLayoutParams(linearLayoutParams);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        subDate.setText(substartyear + "년 " + substartmonth + "월 " + substartday + "일 ~ " + subendyear + "년 " + subendmonth + "월 " + subendday);
+        subDate.setText(
+                substartyear + "년 " + substartmonth + "월 " + substartday + "일 ~ " +
+                        subendyear + "년 " + subendmonth + "월 " + subendday + "일"
+        );
         subTitleText.setText(subTitle.getText().toString());
         subInfoText.setText(subInfo.getText().toString());
 
@@ -300,9 +348,13 @@ public class AddScheduleActivity extends Activity {
 
         linearLayout.addView(subDate);
         linearLayout.addView(deleteButton);
-        subLinear.addView(linearLayout);
-        subLinear.addView(subTitleText);
-        subLinear.addView(subInfoText);
+        outerLinearLayout.addView(linearLayout);
+        outerLinearLayout.addView(subTitleText);
+        outerLinearLayout.addView(subInfoText);
+
+        subScheduleLayouts.add(outerLinearLayout);
+
+        subLinear.addView(outerLinearLayout);
     }
 
 

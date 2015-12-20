@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -31,10 +32,15 @@ public class MainActivity extends Activity {
     private Spinner yearSpinner;
     private Spinner monthSpinner;
 
+    private Button addScheduleButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addScheduleButton = (Button)findViewById(R.id.add_new_schedule_button);
+        addScheduleButton.setPadding(0, 0, 0, 0);
 
         String[] yearArr = new String[15];
         for(int i = 0; i < yearArr.length; i++) {
