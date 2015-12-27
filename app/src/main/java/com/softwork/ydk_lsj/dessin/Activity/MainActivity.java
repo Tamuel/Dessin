@@ -128,6 +128,7 @@ public class MainActivity extends Activity {
     public void repaintSchedule() {
         dayScheduleLayout.removeAllViews();
         scheduleScrollView.removeAllViews();
+        scheduleLayout.removeAllViews();
         dayLayout.removeAllViews();
         scheduleLayout = new ScheduleLinearLayout(this);
         dayLayout = new DayLinearLayout(this);
