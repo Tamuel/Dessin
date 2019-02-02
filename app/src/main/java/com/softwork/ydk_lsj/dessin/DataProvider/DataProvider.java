@@ -95,6 +95,15 @@ public class DataProvider {
         return tempDate.getActualMaximum(date.DAY_OF_MONTH);
     }
 
+    public int getSelectedDayOfWeek(int day) {
+        Calendar cal= Calendar.getInstance ();
+        cal.set(Calendar.YEAR, getSelectedYear());
+        cal.set(Calendar.MONTH, getSelectedMonth() - 1);
+        cal.set(Calendar.DATE, day);
+        return cal.get(date.DAY_OF_WEEK);
+    }
+
+
     public void setSelectedYear(int year) {
         this.year = year;
     }

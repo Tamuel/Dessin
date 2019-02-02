@@ -1,7 +1,11 @@
 package com.softwork.ydk_lsj.dessin;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -12,6 +16,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.softwork.ydk_lsj.dessin.Activity.AddScheduleActivity;
+import com.softwork.ydk_lsj.dessin.Activity.MainActivity;
 import com.softwork.ydk_lsj.dessin.DataProvider.DBProvider;
 
 import java.text.DateFormat;
@@ -23,7 +29,7 @@ import java.util.Locale;
 /**
  * Created by DongKyu on 2015-12-19.
  */
-public class ScheduleBar extends FrameLayout implements View.OnClickListener{
+public class ScheduleBar extends FrameLayout implements View.OnClickListener, View.OnLongClickListener{
     /** Text view for show schedule title */
     private TextView scheduleTitleView;
     /** Text view for show additional schedule titles */
@@ -79,6 +85,7 @@ public class ScheduleBar extends FrameLayout implements View.OnClickListener{
         setBackgroundResource(R.drawable.bar_layout);
 
         setOnClickListener(this);
+        setOnLongClickListener(this);
 
         setTitleView();
         setAddScheduleTitleViews();
@@ -134,6 +141,7 @@ public class ScheduleBar extends FrameLayout implements View.OnClickListener{
                 try {
                     addStartDate = format.parse(cur.getString(cur.getColumnIndex(DBProvider.ADDITIONAL_SCHEDULE_START_DATE)));
                 } catch (Exception e) {}
+                Log.i("START_DATE", addStartDate.toString());
                 layoutStartPosition = (addStartDate.getDate() - scheduleStartDate.getDate()) *
                         ((int) getResources().getDimension(R.dimen.day_button_size) + border * 2);
                 Log.i("ADD SCHEDULE : ", cur.getString(cur.getColumnIndex(DBProvider.ADDITIONAL_SCHEDULE_TITLE)) + " " + layoutStartPosition);
@@ -183,6 +191,38 @@ public class ScheduleBar extends FrameLayout implements View.OnClickListener{
             scheduleTitleView.setLayoutParams(titleParams);
         }
         scheduleTitleView.setSingleLine();
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setPositiveButton("스케줄 보기",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent editActivity = new Intent(getContext(), AddScheduleActivity.class);
+                        editActivity.putExtra("EDIT_SCHEDULE", scheduleID);
+                        Log.i("ID", scheduleID + "");
+                        getContext().startActivity(editActivity);
+                        dialog.dismiss();     //닫기
+                    }
+                });
+        alert.setNegativeButton("스케줄 삭제",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ContentResolver cr = getContext().getContentResolver();
+                        cr.delete(DBProvider.ADDITIONAL_SCHEDULE_TABLE_CONTENT_URI, DBProvider.SCHEDULE_TABLE_FK+ " = " +
+                                scheduleID, null);
+                        cr.delete(DBProvider.SCHEDULE_TABLE_CONTENT_URI, DBProvider.SCHEDULE_ID + " = " +
+                                scheduleID, null);
+
+                        ((MainActivity)getContext()).repaintSchedule();
+                        dialog.dismiss();     //닫기
+                    }
+                });
+        alert.show();
+        return true;
     }
 
     /**

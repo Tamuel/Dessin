@@ -116,6 +116,18 @@ public class DBProvider extends ContentProvider {
                 }
                 cnt = ScheduleDB.delete(ADDITIONAL_SCHEDULE_TABLE, where, selectionArgs);
                 break;
+
+            case SCHEDULE_TABLE_GETALL:
+                cnt = ScheduleDB.delete(SCHEDULE_TABLE, selection, selectionArgs);
+                break;
+
+            case SCHEDULE_TABLE_GETONE:
+                where = SCHEDULE_ID + " = '" + uri.getPathSegments().get(1) + "'";
+                if(TextUtils.isEmpty(selection) == false) {
+                    where += " AND " + selection;
+                }
+                cnt = ScheduleDB.delete(SCHEDULE_TABLE, where, selectionArgs);
+                break;
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
@@ -159,6 +171,7 @@ public class DBProvider extends ContentProvider {
 
         sql += ";";
 
+        Log.i("EXE SQL", sql);
         Cursor cur = ScheduleDB.rawQuery(sql, null);
         return cur;
     }

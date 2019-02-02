@@ -63,7 +63,7 @@ public class DayLinearLayout extends LinearLayout  {
                     DataProvider.getInstance().getCurrentDay() == day) {
                 newDayButton.setTextColor(getResources().getColor(R.color.white));
                 newDayButton.setBackgroundResource(R.drawable.today_simple_button);
-            } else if(DataProvider.getInstance().getDayOfWeek(day) == 1)
+            } else if(DataProvider.getInstance().getSelectedDayOfWeek(day) == 1)
                 newDayButton.setTextColor(getResources().getColor(R.color.hotPink));
             else
                 newDayButton.setTextColor(getResources().getColor(R.color.gray));

@@ -85,9 +85,7 @@ public class ScheduleLinearLayout extends LinearLayout {
                 try {
                     startD = format.parse(startDate);
                     endD = format.parse(endDate);
-                } catch (Exception e) {
-
-                }
+                } catch (Exception e) {}
 
                 newLayout.addView(new ScheduleBar(
                         getContext(),
