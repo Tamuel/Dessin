@@ -5,9 +5,9 @@ Android application for managing schedule more effectively with split each sched
 
 ## Screenshot
 
-<img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/01_dessin.png" width="400"/>  <img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/02_dessin.png" width="400"/>
-
-<img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/03_dessin.png" width="400"/>  <img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/04_dessin.png" width="400"/>
+|<img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/01_dessin.png" width="400"/>|<img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/02_dessin.png" width="400"/>|
+|----|----|
+|<img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/03_dessin.png" width="400"/>|<img src="https://github.com/Tamuel/Dessin/blob/master/Screenshot/04_dessin.png" width="400"/>|
 
 
 ## Video
