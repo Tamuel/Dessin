@@ -1,7 +1,7 @@
 # Dessin
 Android application for managing schedule more effectively with split each schedule.\
 스케줄을 관리할 수 있는 안드로이드 어플리케이션 입니다.\
-일반 스케줄 관리 어플과 다르게 각각의 스케줄에 세부 스캐줄을 추가해 세분화해서 관리 가능하게 디자인하였습니다.
+일반 스케줄 관리 어플과 다르게 각각의 스케줄에 세부 스줄을 추가해 세분화해서 관리 가능하게 디자인하였습니다.
 
 ## Screenshot
 
